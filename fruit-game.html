@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fruit Shop Game - Fruit Shop</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .game-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      
+      .game-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding: 15px;
+        background: #f0f8ff;
+        border-radius: 8px;
+      }
+      
+      .money-display {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #2e7d32;
+      }
+      
+      .game-area {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      
+      .yard-section, .store-section {
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        border: 2px solid #ddd;
+      }
+      
+      .section-title {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        text-align: center;
+        color: #333;
+      }
+      
+      .fruit-trees {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      
+      .tree {
+        text-align: center;
+        padding: 15px;
+        background: #e8f5e8;
+        border-radius: 8px;
+        border: 2px solid #4caf50;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .tree:hover {
+        background: #c8e6c9;
+        transform: scale(1.05);
+      }
+      
+      .tree.disabled {
+        background: #f5f5f5;
+        border-color: #ccc;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+      
+      .tree-emoji {
+        font-size: 3rem;
+        margin-bottom: 10px;
+      }
+      
+      .tree-info {
+        font-size: 0.9rem;
+        color: #666;
+      }
+      
+      .inventory {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      
+      .inventory-item {
+        text-align: center;
+        padding: 10px;
+        background: white;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+      }
+      
+      .inventory-emoji {
+        font-size: 2rem;
+        margin-bottom: 5px;
+      }
+      
+      .inventory-count {
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: #333;
+      }
+      
+      .store-display {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+        margin-bottom: 20px;
+        min-height: 120px;
+        background: white;
+        padding: 15px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+      }
+      
+      .store-item {
+        text-align: center;
+        padding: 10px;
+        background: #f0f8ff;
+        border-radius: 6px;
+        border: 1px solid #2196f3;
+        position: relative;
+      }
+      
+      .store-item-emoji {
+        font-size: 2rem;
+        margin-bottom: 5px;
+      }
+      
+      .store-item-count {
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: #1976d2;
+      }
+      
+      .customer-area {
+        background: #fff3e0;
+        padding: 20px;
+        border-radius: 8px;
+        border: 2px solid #ff9800;
+        margin-bottom: 20px;
+      }
+      
+      .customer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+        background: white;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+      }
+      
+      .customer-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .customer-emoji {
+        font-size: 2rem;
+      }
+      
+      .customer-order {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #333;
+      }
+      
+      .customer-patience {
+        width: 100px;
+        height: 8px;
+        background: #e0e0e0;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-left: 10px;
+      }
+      
+      .patience-bar {
+        height: 100%;
+        background: linear-gradient(to right, #4caf50, #ff9800, #f44336);
+        transition: width 0.3s ease;
+      }
+      
+      .serve-btn {
+        background: #4caf50;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+      }
+      
+      .serve-btn:hover {
+        background: #45a049;
+      }
+      
+      .serve-btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
+      
+      .game-controls {
+        text-align: center;
+        margin-top: 20px;
+      }
+      
+      .control-btn {
+        background: #2196f3;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1rem;
+        margin: 0 10px;
+      }
+      
+      .control-btn:hover {
+        background: #1976d2;
+      }
+      
+      .game-log {
+        background: #f5f5f5;
+        padding: 15px;
+        border-radius: 6px;
+        max-height: 200px;
+        overflow-y: auto;
+        font-family: monospace;
+        font-size: 0.9rem;
+        margin-top: 20px;
+      }
+      
+      .log-entry {
+        margin-bottom: 5px;
+        padding: 2px 0;
+      }
+      
+      .log-success { color: #4caf50; }
+      .log-warning { color: #ff9800; }
+      .log-error { color: #f44336; }
+      .log-info { color: #2196f3; }
+    </style>
+  </head>
+  <body>
+    <header role="banner">
+      <div class="header-center">
+        <a href="index.html" class="logo" aria-label="Go to homepage">
+          <img
+            src="img/fruit-shop-logo.webp"
+            class="logo-img"
+            alt="Fruit Shop Logo"
+          />
+          <span class="products-text" style="text-align: center">
+            View Products
+          </span>
+        </a>
+        <nav role="navigation" aria-label="Main navigation">
+          <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="bundles.html">Bundles</a>
+            <a href="personality-quiz.html" class="quiz-link">🌟 Fruit Quiz</a>
+            <a href="fruit-game.html" class="quiz-link">🎮 Fruit Game</a>
+          </div>
+          <a
+            href="basket.html"
+            class="basket-link"
+            aria-label="View shopping basket"
+            style="position: relative"
+          >
+            <img
+              src="img/basket-icon.png"
+              class="basket-img"
+              alt="Shopping basket icon"
+            />
+            <span class="basket-text">View shopping basket</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+    
+    <main id="main-content" role="main">
+      <div class="game-container">
+        <div class="game-header">
+          <h1>🍎 Fruit Shop Manager 🍎</h1>
+          <div class="money-display">💰 $<span id="money">100</span></div>
+        </div>
+        
+        <div class="game-area">
+          <div class="yard-section">
+            <h2 class="section-title">🌳 Fruit Trees Yard</h2>
+            <div class="fruit-trees" id="fruitTrees">
+              <!-- Trees will be populated by JavaScript -->
+            </div>
+            <div class="inventory">
+              <h3>Your Inventory:</h3>
+              <div id="inventory">
+                <!-- Inventory will be populated by JavaScript -->
+              </div>
+            </div>
+          </div>
+          
+          <div class="store-section">
+            <h2 class="section-title">🏪 Your Store</h2>
+            <div class="store-display" id="storeDisplay">
+              <!-- Store items will be populated by JavaScript -->
+            </div>
+            <button class="control-btn" onclick="stockStore()">📦 Stock Store</button>
+          </div>
+        </div>
+        
+        <div class="customer-area">
+          <h2 class="section-title">👥 Customers</h2>
+          <div id="customers">
+            <!-- Customers will be populated by JavaScript -->
+          </div>
+        </div>
+        
+        <div class="game-controls">
+          <button class="control-btn" onclick="startGame()">▶️ Start Game</button>
+          <button class="control-btn" onclick="pauseGame()">⏸️ Pause</button>
+          <button class="control-btn" onclick="resetGame()">🔄 Reset</button>
+        </div>
+        
+        <div class="game-log" id="gameLog">
+          <div class="log-entry log-info">Welcome to Fruit Shop Manager! Click "Start Game" to begin.</div>
+        </div>
+      </div>
+    </main>
+    
+    <script src="fruit-game.js"></script>
+  </body>
+</html>
