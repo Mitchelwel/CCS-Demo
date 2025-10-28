@@ -2,6 +2,8 @@ const PRODUCTS = {
   apple: { name: "Apple", emoji: "🍏" },
   banana: { name: "Banana", emoji: "🍌" },
   lemon: { name: "Lemon", emoji: "🍋" },
+  cherry: { name: "Premium Cherry", emoji: "🍒" },
+  mango: { name: "Fresh Mango", emoji: "🥭" },
 };
 
 const BUNDLES = {
