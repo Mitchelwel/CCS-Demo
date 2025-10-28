@@ -36,4 +36,71 @@ function renderRecipes(productId, containerId) {
   container.innerHTML = createRecipesSection(productId);
 }
 
+function showRecipeModal(productId) {
+  const recipes = PRODUCT_RECIPES[productId] || [];
+  if (recipes.length === 0) return;
+  const recipe = recipes[0];
+  // Create overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.style.position = 'fixed';
+  overlay.style.inset = '0';
+  overlay.style.background = 'rgba(0,0,0,0.45)';
+  overlay.style.display = 'flex';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
+  overlay.style.zIndex = '1000';
+
+  const modal = document.createElement('div');
+  modal.className = 'modal-content';
+  modal.style.background = 'white';
+  modal.style.padding = '1.25rem';
+  modal.style.borderRadius = '8px';
+  modal.style.width = 'min(92vw, 520px)';
+  modal.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)';
+
+  const title = document.createElement('h2');
+  title.textContent = '🍽️ Try this recipe';
+  title.style.marginTop = '0';
+
+  const link = document.createElement('a');
+  link.href = recipe.url;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  link.textContent = recipe.title;
+
+  const btnRow = document.createElement('div');
+  btnRow.style.display = 'flex';
+  btnRow.style.gap = '0.5rem';
+  btnRow.style.marginTop = '1rem';
+  btnRow.style.justifyContent = 'flex-end';
+
+  const closeBtn = document.createElement('button');
+  closeBtn.textContent = 'Close';
+  closeBtn.className = 'cart-action-btn';
+  closeBtn.onclick = () => document.body.removeChild(overlay);
+
+  const viewBtn = document.createElement('a');
+  viewBtn.textContent = 'View Recipe';
+  viewBtn.href = recipe.url;
+  viewBtn.target = '_blank';
+  viewBtn.rel = 'noopener noreferrer';
+  viewBtn.className = 'cart-action-btn';
+  viewBtn.style.textDecoration = 'none';
+  viewBtn.style.display = 'inline-flex';
+  viewBtn.style.alignItems = 'center';
+  viewBtn.style.justifyContent = 'center';
+
+  btnRow.appendChild(closeBtn);
+  btnRow.appendChild(viewBtn);
+
+  modal.appendChild(title);
+  modal.appendChild(link);
+  modal.appendChild(btnRow);
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
+
 

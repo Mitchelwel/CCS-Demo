@@ -76,6 +76,12 @@
       initFactsCarousel();
       // Add recipes section
       renderRecipes("lemon", "recipesContainer");
+      // Show recipe modal on load
+      if (document.readyState !== "loading") {
+        showRecipeModal("lemon");
+      } else {
+        document.addEventListener("DOMContentLoaded", function () { showRecipeModal("lemon"); });
+      }
     </script>
   </body>
 </html>
