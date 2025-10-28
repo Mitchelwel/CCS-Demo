@@ -60,9 +60,11 @@
           </button>
         </div>
         <div id="factsContainer"></div>
+        <div id="recipesContainer"></div>
       </div>
     </main>
     <script src="shop.js"></script>
+    <script src="recipes.js"></script>
     <script src="fruit-facts.js"></script>
     <script>
       document.getElementById("addToBasket").onclick = function () {
@@ -72,6 +74,8 @@
       // Add facts section
       document.getElementById("factsContainer").innerHTML = createFactsSection("banana");
       initFactsCarousel();
+      // Add recipes section
+      renderRecipes("banana", "recipesContainer");
     </script>
   </body>
 </html>
