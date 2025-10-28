@@ -13,6 +13,16 @@ const PRODUCT_RECIPES = {
     { title: "Lemon Tart", url: "https://www.bbcgoodfood.com/recipes/ultimate-lemon-meringue-pie" },
     { title: "Lemonade", url: "https://www.simplyrecipes.com/recipes/perfect_lemonade/" },
     { title: "Lemon Chicken", url: "https://www.allrecipes.com/recipe/30522/lemon-chicken-piccata/" }
+  ],
+  cherry: [
+    { title: "Cherry Clafoutis", url: "https://www.bbcgoodfood.com/recipes/cherry-clafoutis" },
+    { title: "Cherry Pie", url: "https://www.allrecipes.com/recipe/223042/cherry-pie/" },
+    { title: "Cherry Smoothie", url: "https://www.simplyrecipes.com/recipes/cherry_smoothie/" }
+  ],
+  mango: [
+    { title: "Mango Sticky Rice", url: "https://www.allrecipes.com/recipe/213742/mango-sticky-rice/" },
+    { title: "Mango Lassi", url: "https://www.bbcgoodfood.com/recipes/mango-lassi" },
+    { title: "Mango Salsa", url: "https://www.simplyrecipes.com/recipes/mango_salsa/" }
   ]
 };
 
